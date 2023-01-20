@@ -35,10 +35,35 @@ const getCountryUsers = (req, res) => {
     )
     res.status(200).json(user)
 }
+//5
+const getVehicleUsers = (req, res) => {
+  // let user = "holi";
+  // res.status(200).json(user);
+    const usersJson = fs.readFileSync("db/users.json", "utf8");
+    const users = JSON.parse(usersJson);
+    const min = req.query.min;
+    const max = req.query.max;
+  
+    // Aquí se asume que la variable "users" contiene la información de los usuarios
+    const filteredUsers = users.filter(user => {
+      return user.vehicles.length >= min && user.vehicles.length <= max;
+    });
+  
+    const response = filteredUsers.map(user => {
+      return {
+        email: user.email,
+        username: user.username,
+        img: user.img
+      }
+    });
+  
+    res.send(response);
+  };
 
 module.exports = {
     getOneUser,
     getUsers,
     getTotalUsers,
-    getCountryUsers
+    getCountryUsers,
+    getVehicleUsers
 }
