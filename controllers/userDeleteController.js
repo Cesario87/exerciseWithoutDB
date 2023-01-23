@@ -1,17 +1,19 @@
 const fs = require('fs');
+const path = require('path');
+const dbPath = path.join(__dirname, '../db/users.json');
 
 const deleteUsers = (req, res) => {
     const username = req.params.username;
     const email = req.body.email;
   
     if (username && email) {
-      const usersJson = fs.readFileSync("db/users.json", "utf8");
+      const usersJson = fs.readFileSync(dbPath, "utf8");
       const users = JSON.parse(usersJson);
       let userIndex = users.findIndex(user => user.username === username && user.email === email);
       if (userIndex !== -1) {
         if(users[userIndex].deleted) {
           let deletedUser = users.splice(userIndex, 1);
-          fs.writeFileSync('db/users.json', JSON.stringify(users), 'utf8');
+          fs.writeFileSync(dbPath, JSON.stringify(users), 'utf8');
           res.status(200).json({deletedUser});
         } else {
           res.status(401).json({

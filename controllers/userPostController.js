@@ -1,5 +1,7 @@
 const uuid = require('uuid');
 const fs = require('fs');
+const path = require('path');
+const dbPath = path.join(__dirname, '../db/users.json');
 
 const postUsers = (req, res) => {
   const email = req.body.email;
@@ -18,10 +20,10 @@ const postUsers = (req, res) => {
     };
 
     // code to save the new user in the database
-    const usersJson = fs.readFileSync("db/users.json", "utf8");
+    const usersJson = fs.readFileSync(dbPath, "utf8");
     const users = JSON.parse(usersJson);
     users.push(newUser);
-    fs.writeFileSync('db/users.json', JSON.stringify(users), 'utf8');
+    fs.writeFileSync(dbPath, JSON.stringify(users), 'utf8');
 
     res.status(201).json(newUser);
   } else {
