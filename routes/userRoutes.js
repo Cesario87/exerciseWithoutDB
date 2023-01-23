@@ -11,9 +11,10 @@ usersRouter.get('/total', userController.getTotalUsers);
 usersRouter.get('/food/', userController.getFoodUsers);
 usersRouter.get('/food2/:food', userController.getOneFoodUsers);
 usersRouter.get('/:username?', userController.getOneUser);
-usersRouter.get('/country/:country?', userController.getCountryUsers);//http://localhost:3000/users/vehicle/vehicle?min=9&max=30
-usersRouter.get('/vehicle/:vehicle?', userController.getVehicleUsers);//http://localhost:3000/users/vehicles/vehicles?fuel=Gasoline&manufacturer=Honda&model=Camaro
-usersRouter.get('/vehicles/:vehicles?', userController.getVehicles2Users);//http://localhost:3000/users/vehicles/vehicles?fuel=Gasoline
+usersRouter.get('/country/:country?', userController.getCountryUsers);
+usersRouter.get('/vehicle/:vehicle?', userController.getVehicleUsers);//http://localhost:3000/users/vehicle/vehicle?min=9&max=30
+usersRouter.get('/vehicles/:vehicles?', userController.getVehiclesUsers);//http://localhost:3000/users/vehicles/vehicles?fuel=Gasoline&manufacturer=Honda&model=Camaro
+usersRouter.get('/vehicles2/:vehicles?', userController.getVehicles2Users);//http://localhost:3000/users/vehicles2/vehicles?fuel=Gasoline
 
 usersRouter.post('', userPostController.postUsers);
 usersRouter.put('/:username', userPutController.putUsers);
