@@ -5,7 +5,7 @@ const postUsers = (req, res) => {
   const email = req.body.email;
   const firstname = req.body.firstName;
   const lastname = req.body.lastName;
-  const username = req.query.username;
+  const username = req.body.username;
 
   if (email && firstname && lastname && username) {
     const newUser = {

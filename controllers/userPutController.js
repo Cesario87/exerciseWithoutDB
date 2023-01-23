@@ -1,4 +1,7 @@
 const fs = require('fs');
+const path = require('path');
+const dbPath = path.join(__dirname, '../db/users.json')
+
 //11
 const putUsers = (req, res) => {
     const username = req.params.username;
@@ -37,7 +40,7 @@ const putVehicleUsers = (req, res) => {
 
     
     if (username) {
-        const usersJson = fs.readFileSync("db/users.json", "utf8");
+        const usersJson = fs.readFileSync(dbPath, "utf8");
         const users = JSON.parse(usersJson);
         let userIndex = users.findIndex(user => user.username === username);
         if (userIndex !== -1) {
@@ -45,7 +48,7 @@ const putVehicleUsers = (req, res) => {
             users[userIndex].firstname = firstname || users[userIndex].firstname;
             users[userIndex].lastname = lastname || users[userIndex].lastname;
             users[userIndex].email = email || users[userIndex].email;
-            fs.writeFileSync('db/users.json', JSON.stringify(users), 'utf8');
+            fs.writeFileSync(dbPath, JSON.stringify(users), 'utf8');
             res.status(200).json({firstname: users[userIndex].firstname, lastname: users[userIndex].lastname, email: users[userIndex].email, vehicles: users[userIndex].vehicles});
         } else {
             res.status(404).json({
@@ -64,11 +67,10 @@ const putFoodUsers = (req, res) => {
     const firstname = req.body.firstName;
     const lastname = req.body.lastName;
     const email = req.body.email;
-    const favouritesFood = req.body.food;
+    const favouritesFood = req.body.favouritesFood;
 
-    
     if (username) {
-        const usersJson = fs.readFileSync("db/users.json", "utf8");
+        const usersJson = fs.readFileSync(dbPath, "utf8");
         const users = JSON.parse(usersJson);
         let userIndex = users.findIndex(user => user.username === username);
         if (userIndex !== -1) {
@@ -76,7 +78,7 @@ const putFoodUsers = (req, res) => {
             users[userIndex].firstname = firstname || users[userIndex].firstname;
             users[userIndex].lastname = lastname || users[userIndex].lastname;
             users[userIndex].email = email || users[userIndex].email;
-            fs.writeFileSync('db/users.json', JSON.stringify(users), 'utf8');
+            fs.writeFileSync(dbPath, JSON.stringify(users), 'utf8');
             res.status(200).json({firstname: users[userIndex].firstname, lastname: users[userIndex].lastname, email: users[userIndex].email, favouritesFood: users[userIndex].favouritesFood});
         } else {
             res.status(404).json({
