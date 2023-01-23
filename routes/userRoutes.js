@@ -1,3 +1,7 @@
+const path = require('path');
+const express = require('express');
+const usersRouter = express.Router();
+
 const userController = require ('../controllers/userController');
 const userPostController = require ('../controllers/userPostController');
 const userPutController = require ('../controllers/userPutController');
