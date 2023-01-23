@@ -1,13 +1,11 @@
 const fs = require('fs');
-const path = require('path');
-const dbPath = path.join(__dirname, '../db/users.json');
 
 const deleteUsers = (req, res) => {
     const username = req.params.username;
     const email = req.body.email;
   
     if (username && email) {
-      const usersJson = fs.readFileSync(dbPath, "utf8");
+      const usersJson = fs.readFileSync("db/users.json", "utf8");
       const users = JSON.parse(usersJson);
       let userIndex = users.findIndex(user => user.username === username && user.email === email);
       if (userIndex !== -1) {
