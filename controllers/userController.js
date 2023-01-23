@@ -1,16 +1,17 @@
 const fs = require('fs');
-// const path = require('path');
-// const dbPath = path.join(__dirname, '..(db/users.json')
+
+const path = require('path');
+const dbPath = path.join(__dirname, '../db/users.json')
+
 //1
 const getUsers = (req, res) => {
-    const usersJson = fs.readFileSync("db/users.json", "utf8");
+    const usersJson = fs.readFileSync(dbPath, "utf8");
     const users = JSON.parse(usersJson);
-    console.log(users);
     res.status(200).json(users);
 }
 //2
 const getOneUser = (req, res) => {
-    const usersJson = fs.readFileSync("db/users.json", "utf8");
+    const usersJson = fs.readFileSync(dbPath, "utf8");
     const users = JSON.parse(usersJson);
     const username = req.params.username;
     let user = users.filter((user) => {
@@ -21,25 +22,29 @@ const getOneUser = (req, res) => {
 }
 //3
 const getTotalUsers = (req, res) => {
-    const usersJson = fs.readFileSync("db/users.json", "utf8");
+    const usersJson = fs.readFileSync(dbPath, "utf8");
     const users = JSON.parse(usersJson);
     let numberTotal = Object.keys(users).length;
     res.status(200).json(numberTotal);
 }
 //4
 const getCountryUsers = (req, res) => {
-    const usersJson = fs.readFileSync("db/users.json", "utf8");
+    // console.log(req.params.country);
+    const usersJson = fs.readFileSync(dbPath, "utf8");
     const users = JSON.parse(usersJson);
+    console.log(users);
     const userCountry = req.params.country;
-    let user = users.filter((user) => {
-        return user.address.country === userCountry
+    let findUser = users.filter((user) => {
+        return user.address.country === userCountry;
     }
+    //lowercase
+    //error
     )
-    res.status(200).json(user)
+    res.status(200).json(findUser)
 }
 //5
 const getVehicleUsers = (req, res) => {
-    const usersJson = fs.readFileSync("db/users.json", "utf8");
+    const usersJson = fs.readFileSync(dbPath, "utf8");
     const users = JSON.parse(usersJson);
     const min = req.query.min;
     const max = req.query.max;
@@ -61,7 +66,7 @@ const getVehicleUsers = (req, res) => {
 };
 //6
 const getOneFoodUsers = (req, res) => {
-    const usersJson = fs.readFileSync("db/users.json", "utf8");
+    const usersJson = fs.readFileSync(dbPath, "utf8");
     const users = JSON.parse(usersJson);
     const food = req.params.food;
     const usersWithFood = users.filter(user => user.favouritesFood.includes(food));
@@ -69,7 +74,7 @@ const getOneFoodUsers = (req, res) => {
 };
 //7
 const getFoodUsers = (req, res) => {
-    const usersJson = fs.readFileSync("db/users.json", "utf8");
+    const usersJson = fs.readFileSync(dbPath, "utf8");
     const users = JSON.parse(usersJson);
     let foods = [];
     for (let i = 0; i < users.length; i++) {
@@ -82,7 +87,7 @@ const getFoodUsers = (req, res) => {
 
 //8
 const getVehiclesUsers = (req, res) => {
-    const usersJson = fs.readFileSync("db/users.json", "utf8");
+    const usersJson = fs.readFileSync(dbPath, "utf8");
     const users = JSON.parse(usersJson);
     let fuel = req.query.fuel;
     let manufacturer = req.query.manufacturer;
@@ -117,7 +122,7 @@ const getVehiclesUsers = (req, res) => {
 
 //9
 const getVehicles2Users = (req, res) => {
-    const usersJson = fs.readFileSync("db/users.json", "utf8");
+    const usersJson = fs.readFileSync(dbPath, "utf8");
     const users = JSON.parse(usersJson);
     let fuel = req.query.fuel;
     let filteredVehicles = [];
