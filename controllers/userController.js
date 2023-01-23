@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const dbPath = path.join(__dirname, '../db/users.json')
+const dbPath = path.join(__dirname, '../db/users.json');
 
 //1
 const getUsers = (req, res) => {
@@ -28,7 +28,6 @@ const getTotalUsers = (req, res) => {
 }
 //4
 const getCountryUsers = (req, res) => {
-    // console.log(req.params.country);
     const usersJson = fs.readFileSync(dbPath, "utf8");
     const users = JSON.parse(usersJson);
     console.log(users);
@@ -36,8 +35,8 @@ const getCountryUsers = (req, res) => {
     let findUser = users.filter((user) => {
         return user.address.country === userCountry;
     }
-    //lowercase
-    //error
+    //country-->lowercase
+    //falta error catch
     )
     res.status(200).json(findUser)
 }

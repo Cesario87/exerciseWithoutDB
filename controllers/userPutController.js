@@ -10,14 +10,14 @@ const putUsers = (req, res) => {
     const email = req.body.email;
     
     if (username) {
-        const usersJson = fs.readFileSync("db/users.json", "utf8");
+        const usersJson = fs.readFileSync(dbPath, "utf8");
         const users = JSON.parse(usersJson);
         let userIndex = users.findIndex(user => user.username === username);
         if (userIndex !== -1) {
             users[userIndex].firstname = firstname || users[userIndex].firstname;
             users[userIndex].lastname = lastname || users[userIndex].lastname;
             users[userIndex].email = email || users[userIndex].email;
-            fs.writeFileSync('db/users.json', JSON.stringify(users), 'utf8');
+            fs.writeFileSync(dbPath, JSON.stringify(users), 'utf8');
             res.status(200).json({firstname: users[userIndex].firstname, lastname: users[userIndex].lastname, email: users[userIndex].email});
         } else {
             res.status(404).json({
@@ -97,12 +97,12 @@ const putHideUsers = (req, res) => {
     const email = req.body.email;
   
     if (username && email) {
-      const usersJson = fs.readFileSync("db/users.json", "utf8");
+      const usersJson = fs.readFileSync(dbPath, "utf8");
       const users = JSON.parse(usersJson);
       let userIndex = users.findIndex(user => user.username === username && user.email === email);
       if (userIndex !== -1) {
         users[userIndex].visibility = false;
-        fs.writeFileSync('db/users.json', JSON.stringify(users), 'utf8');
+        fs.writeFileSync(dbPath, JSON.stringify(users), 'utf8');
         res.status(200).json({message: 'User visibility has been successfully updated'});
       } else {
         res.status(404).json({
